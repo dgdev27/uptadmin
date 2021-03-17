@@ -1,0 +1,671 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Add you code here -->
+        <menuitem   name="Configuración" 
+                    id="uptadmin.menu_config"
+                    sequence="8"
+                    parent="uptadmin.menu_root"
+                    />
+        
+        <!-- Objeto del Menu del modulo -->
+
+        <!-- upta.espacios.tipos tree view -->
+        <record id="upta_espacios_tipos_view_tree" model="ir.ui.view">
+            <field name="name">upta.espacios.tipos.view.tree</field>
+            <field name="model">upta.espacios.tipos</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Espacios -->
+
+        <!-- upta.espacios.tipos form view -->
+        <record id="upta_espacios_tipos_view_form" model="ir.ui.view">
+            <field name="name">upta.espacios.tipos.view.form</field>
+            <field name="model">upta.espacios.tipos</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Tipos de Espacios">
+                            <group>
+                                <field name="name" placeholder="Ej: Aula, Laboratorio, etc..."/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="upta_espacios_tipos_action" model="ir.actions.act_window">
+            <field name="name">Tipos de Espacios UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.espacios.tipos</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem   name="Espacios" 
+                    id="uptadmin.menu_espacios_config"
+                    sequence="1"
+                    parent="uptadmin.menu_config"
+                    />
+
+        <menuitem   name="Tipos de Espacios" 
+                    id="uptadmin.menu_espacios_tipos_config"
+                    sequence="1"
+                    parent="uptadmin.menu_espacios_config"
+                    action="upta_espacios_tipos_action"
+                    />
+
+        <!-- Edificios -->
+
+        <!-- upta.espacios.edificios tree view -->
+        <record id="upta_espacios_edificios_view_tree" model="ir.ui.view">
+            <field name="name">upta.espacios.edificios.view.tree</field>
+            <field name="model">upta.espacios.edificios</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.espacios.edificios form view -->
+        <record id="upta_espacios_edificios_view_form" model="ir.ui.view">
+            <field name="name">upta.espacios.edificios.view.form</field>
+            <field name="model">upta.espacios.edificios</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Edificios">
+                            <group>
+                                <field name="name" placeholder="Ej: A, B, C, etc..."/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="upta_espacios_edificios_action" model="ir.actions.act_window">
+            <field name="name">Edificios de Espacios UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.espacios.edificios</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem   name="Edificios de Espacios" 
+                    id="uptadmin.menu_espacios_edificios_config"
+                    sequence="2"
+                    parent="uptadmin.menu_espacios_config"
+                    action="upta_espacios_edificios_action"
+                    />
+
+        <!-- Secciones -->
+
+        <!-- upta.agno.academico tree view -->
+        <record id="upta_agno_academico_view_tree" model="ir.ui.view">
+            <field name="name">upta.agno.academico.view.tree</field>
+            <field name="model">upta.agno.academico</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="fecha_ini"/>
+                    <field name="fecha_fin"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.agno.academico form view -->
+        <record id="upta_agno_academico_view_form" model="ir.ui.view">
+            <field name="name">upta.agno.academico.view.form</field>
+            <field name="model">upta.agno.academico</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Años Académicos">
+                            <group>
+                                <field name="name" placeholder="Ej: 2020-2021, 2021-2022, 2022-2023, etc..."/>
+                                <field name="fecha_fin"/>                            
+                            </group>
+                            <group>
+                                <field name="fecha_ini"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="secciones" string="Secciones">
+                                <field name="secciones_id"  domain="[('status', '=', 'activo')]">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="trayectos_id"/>
+                                        <field name="carreras_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.agno.academico search view -->
+        <record id="upta_agno_academico_view_search" model="ir.ui.view">
+            <field name="name">upta.agno.academico.view.search</field>
+            <field name="model">upta.agno.academico</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Años Académicos">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_agno_academico_action" model="ir.actions.act_window">
+            <field name="name">Años Académicos UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.agno.academico</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+        </record>
+        
+        <menuitem   name="Secciones" 
+                    id="uptadmin.menu_secciones_config"
+                    sequence="3"
+                    parent="uptadmin.menu_config"
+                    />
+
+        <menuitem   name="Años Académicos" 
+                    id="uptadmin.menu_agno_academico"
+                    sequence="1"
+                    parent="uptadmin.menu_secciones_config"
+                    action="upta_agno_academico_action"
+                    />
+
+        <!-- Horarios -->
+
+        <!-- upta.horarios.horas tree view -->
+        <record id="upta_horarios_horas_view_tree" model="ir.ui.view">
+            <field name="name">upta.horarios.horas.view.tree</field>
+            <field name="model">upta.horarios.horas</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="valor"/>
+                    <field name="tipo"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.horarios.horas form view -->
+        <record id="upta_horarios_horas_view_form" model="ir.ui.view">
+            <field name="name">upta.horarios.horas.view.form</field>
+            <field name="model">upta.horarios.horas</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Horas de Horarios">
+                            <group>
+                                <field name="name" placeholder="Ej: 9:00 am, 10:30 am, 1:30 pm, etc..."/>
+                                <field name="tipo"/>                            
+                            </group>
+                            <group>
+                                <field name="valor"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.horarios.horas search view -->
+        <record id="upta_horarios_horas_view_search" model="ir.ui.view">
+            <field name="name">upta.horarios.horas.view.search</field>
+            <field name="model">upta.horarios.horas</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Horas de Horarios">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="valor"/>
+                    <field name="tipo"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_horarios_horas_action" model="ir.actions.act_window">
+            <field name="name">Horas de Horarios UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.horarios.horas</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem   name="Horarios" 
+                    id="uptadmin.menu_horarios_config"
+                    sequence="4"
+                    parent="uptadmin.menu_config"
+                    />
+
+        <menuitem   name="Horas" 
+                    id="uptadmin.menu_horarios_horas"
+                    sequence="1"
+                    parent="uptadmin.menu_horarios_config"
+                    action="upta_horarios_horas_action"
+                    />
+
+        <!-- Planificación cronológica -->
+
+        <!-- upta.plan.cronologico.saberes tree view -->
+        <record id="upta_plan_cronologico_saberes_view_tree" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.saberes.view.tree</field>
+            <field name="model">upta.plan.cronologico.saberes</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.plan.cronologico.saberes form view -->
+        <record id="upta_plan_cronologico_saberes_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.saberes.view.form</field>
+            <field name="model">upta.plan.cronologico.saberes</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Saberes de Planificación Cronológica">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.plan.cronologico.saberes search view -->
+        <record id="upta_plan_cronologico_saberes_view_search" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.saberes.view.search</field>
+            <field name="model">upta.plan.cronologico.saberes</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Saberes de Planificación Cronológica">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_plan_cronologico_saberes_action" model="ir.actions.act_window">
+            <field name="name">Saberes de Planificación Cronológica UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.plan.cronologico.saberes</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem   name="Planificación Cronológica" 
+                    id="uptadmin.menu_plan_cronologico_config"
+                    sequence="5"
+                    parent="uptadmin.menu_config"
+                    />
+
+        <menuitem   name="Saberes" 
+                    id="uptadmin.menu_plan_cronologico_saberes"
+                    sequence="1"
+                    parent="uptadmin.menu_plan_cronologico_config"
+                    action="upta_plan_cronologico_saberes_action"
+                    />
+
+        <!-- upta.plan.cronologico.estrategias tree view -->
+        <record id="upta_plan_cronologico_estrategias_view_tree" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.estrategias.view.tree</field>
+            <field name="model">upta.plan.cronologico.estrategias</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.plan.cronologico.estrategias form view -->
+        <record id="upta_plan_cronologico_estrategias_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.estrategias.view.form</field>
+            <field name="model">upta.plan.cronologico.estrategias</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Estrategias de Planificación Cronológica">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.plan.cronologico.estrategias search view -->
+        <record id="upta_plan_cronologico_estrategias_view_search" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.estrategias.view.search</field>
+            <field name="model">upta.plan.cronologico.estrategias</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Estrategias de Planificación Cronológica">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_plan_cronologico_estrategias_action" model="ir.actions.act_window">
+            <field name="name">Estrategias de Planificación Cronológica UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.plan.cronologico.estrategias</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem   name="Estrategias" 
+                    id="uptadmin.menu_plan_cronologico_estrategias"
+                    sequence="2"
+                    parent="uptadmin.menu_plan_cronologico_config"
+                    action="upta_plan_cronologico_estrategias_action"
+                    />
+
+        <!-- Plan de Evaluación -->
+
+        <!-- upta.plan.evaluacion.objetivos tree view -->
+        <record id="upta_plan_evaluacion_objetivos_view_tree" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.objetivos.view.tree</field>
+            <field name="model">upta.plan.evaluacion.objetivos</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion.objetivos form view -->
+        <record id="upta_plan_evaluacion_objetivos_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.objetivos.view.form</field>
+            <field name="model">upta.plan.evaluacion.objetivos</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Objetivos de Plan de Evaluación">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion.objetivos search view -->
+        <record id="upta_plan_evaluacion_objetivos_view_search" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.objetivos.view.search</field>
+            <field name="model">upta.plan.evaluacion.objetivos</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Objetivos de Plan de Evaluación">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_plan_evaluacion_objetivos_action" model="ir.actions.act_window">
+            <field name="name">Objetivos de Plan de Evaluación UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.plan.evaluacion.objetivos</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem   name="Plan de Evaluación" 
+                    id="uptadmin.menu_plan_evaluacion_config"
+                    sequence="6"
+                    parent="uptadmin.menu_config"
+                    />
+
+        <menuitem   name="Objetivos" 
+                    id="uptadmin.menu_plan_evaluacion_objetivos"
+                    sequence="1"
+                    parent="uptadmin.menu_plan_cronologico_config"
+                    action="upta_plan_evaluacion_objetivos_action"
+                    />
+
+        <!-- upta.plan.evaluacion.instrumentos tree view -->
+        <record id="upta_plan_evaluacion_instrumentos_view_tree" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.instrumentos.view.tree</field>
+            <field name="model">upta.plan.evaluacion.instrumentos</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion.instrumentos form view -->
+        <record id="upta_plan_evaluacion_instrumentos_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.instrumentos.view.form</field>
+            <field name="model">upta.plan.evaluacion.instrumentos</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Instrumentos de Plan de Evaluación">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion.instrumentos search view -->
+        <record id="upta_plan_evaluacion_instrumentos_view_search" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.instrumentos.view.search</field>
+            <field name="model">upta.plan.evaluacion.instrumentos</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Instrumentos de Plan de Evaluación">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_plan_evaluacion_instrumentos_action" model="ir.actions.act_window">
+            <field name="name">Instrumentos de Plan de Evaluación UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.plan.evaluacion.instrumentos</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem   name="Instrumentos" 
+                    id="uptadmin.menu_plan_evaluacion_instrumentos"
+                    sequence="2"
+                    parent="uptadmin.menu_plan_evaluacion_config"
+                    action="upta_plan_evaluacion_instrumentos_action"
+                    />
+
+        <!-- upta.plan.evaluacion.instrumentos tree view -->
+        <record id="upta_plan_evaluacion_metas_view_tree" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.metas.view.tree</field>
+            <field name="model">upta.plan.evaluacion.metas</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion.metas form view -->
+        <record id="upta_plan_evaluacion_metas_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.metas.view.form</field>
+            <field name="model">upta.plan.evaluacion.metas</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Metas de Plan de Evaluación">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion.metas search view -->
+        <record id="upta_plan_evaluacion_metas_view_search" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.metas.view.search</field>
+            <field name="model">upta.plan.evaluacion.metas</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Metas de Plan de Evaluación">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_plan_evaluacion_metas_action" model="ir.actions.act_window">
+            <field name="name">Metas de Plan de Evaluación UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.plan.evaluacion.metas</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem   name="Metas" 
+                    id="uptadmin.menu_plan_evaluacion_metas"
+                    sequence="3"
+                    parent="uptadmin.menu_plan_evaluacion_config"
+                    action="upta_plan_evaluacion_metas_action"
+                    />
+
+        <!-- upta.plan.evaluacion.instrumentos tree view -->
+        <record id="upta_plan_evaluacion_metas_view_tree" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.metas.view.tree</field>
+            <field name="model">upta.plan.evaluacion.metas</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion.condiciones form view -->
+        <record id="upta_plan_evaluacion_condiciones_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.condiciones.view.form</field>
+            <field name="model">upta.plan.evaluacion.condiciones</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Condiciones de Plan de Evaluación">
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion.condiciones search view -->
+        <record id="upta_plan_evaluacion_condiciones_view_search" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.condiciones.view.search</field>
+            <field name="model">upta.plan.evaluacion.condiciones</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Condiciones de Plan de Evaluación">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_plan_evaluacion_condiciones_action" model="ir.actions.act_window">
+            <field name="name">Condiciones de Plan de Evaluación UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.plan.evaluacion.condiciones</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem   name="Condiciones" 
+                    id="uptadmin.menu_plan_evaluacion_condiciones"
+                    sequence="4"
+                    parent="uptadmin.menu_plan_evaluacion_config"
+                    action="upta_plan_evaluacion_condiciones_action"
+                    />
+
+    </data>
+</odoo>

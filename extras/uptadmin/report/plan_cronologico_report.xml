@@ -1,0 +1,415 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Add you code here -->
+        
+        <report
+            id="action_report_plan_cronologico"
+            string="Plan Cronológico"
+            model="upta.plan.cronologico"
+            report_type="qweb-pdf"
+            name="uptadmin.plan_cronologico_report"
+            file="uptadmin.plan_cronologico_report"
+            menu="True"
+            />
+
+        <template id="plan_cronologico_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="uptadmin.external_layout_upta_report_template">
+
+                        <div class="page">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-10">
+                                        <table class="table border mt-5">
+                                            <colgroup>
+                                                <col span="1" style="width: 25%;"/>
+                                                <col span="1" style="width: 25%;"/>
+                                                <col span="1" style="width: 25%;"/>
+                                                <col span="1" style="width: 25%;"/>
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="4" class="text-center">
+                                                        <h4 class="text-center">Planificación Cronológica</h4>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <span style="font-size:12px;" class="text-center"><b>Unidad Curricular: </b> <t t-esc="o.materias_id.name"/> </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                        <span style="font-size:12px;" class="text-center"><b>Modulo: </b></span>
+                                                    </td>
+                                                    <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                        <span style="font-size:12px;" class="text-center"><b>Código: </b> <t t-esc="o.materias_id.codigo"/></span>
+                                                    </td>
+                                                    <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                        <span style="font-size:12px;" class="text-center"><b>Modulo: </b> <t t-esc="o.materias_id.fases_id.identificador"/></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                        <span style="font-size:12px;" class="text-center"><b>Trayecto: </b> <t t-esc="o.materias_id.trayecto_id.identificador"/></span>
+                                                    </td>
+                                                    <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                        <span style="font-size:12px;" class="text-center"><b>Trimestre: </b> <t t-esc="o.materias_id.fases_id.identificador"/></span>
+                                                    </td>
+                                                    <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                        <span style="font-size:12px;" class="text-center"><b>Periodo: </b> <t t-esc="o.agno_id.name"/></span>
+                                                    </td>
+                                                    <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                        <span style="font-size:12px;" class="text-center"><b>Regimen: </b> <t t-esc="o.materias_id.mallas_id.turno"/></span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <span style="font-size:12px;" class="text-center"><b>Profesor(es) Asesor(es): </b> <t t-esc="o.profesores_id.name"/> </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-1"></div>
+                                </div>
+                            </div>
+                            <br/><br/>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-10">
+                                        <table class="table border mt-5">
+                                            <colgroup>
+                                                <col span="1" style="width: 10%;"/>
+                                                <col span="1" style="width: 45%;"/>
+                                                <col span="1" style="width: 45%;"/>
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                        <b style="font-size:12px;">Semana</b>
+                                                    </td>
+                                                    <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                        <b style="font-size:12px;">Saberes</b>
+                                                    </td>
+                                                    <td>
+                                                        <b style="font-size:12px;">Estrategias de Enseñanza - Aprendizaje</b>
+                                                    </td>
+                                                </tr>
+                                                <t t-set="contador" t-value="0"/>
+                                                <t t-foreach="o.plan_act_id.sorted(key='semana')" t-as="item">
+                                                    <t t-if="item.semana == 1 and contador == 0">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 1 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 1">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 2 and contador == 1">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 2 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 2">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="2"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 3 and contador == 2">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 3 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 3">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="3"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 4 and contador == 3">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 4 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 4">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="4"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 5 and contador == 4">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 5 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 5">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="5"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 6 and contador == 5">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 6 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 6">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="6"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 7 and contador == 6">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 7 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 7">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="7"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 8 and contador == 7">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 8 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 8">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="8"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 9 and contador == 8">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 9 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 9">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="9"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 10 and contador == 9">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 10 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 10">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="10"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 11 and contador == 10">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 11 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 11">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="11"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-elif="item.semana == 12 and contador == 11">
+                                                        <tr>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <span style="font-size:12px;"><t t-esc="item.semana"/></span>
+                                                            </td>
+                                                            <td class="border border-top-1 border-bottom-0 border-left-0 border-right-1">
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 12 and line.saberes_id.name != objetivo">
+                                                                        <span style="font-size:12px;"><t t-esc="line.saberes_id.name"/></span><br/>
+                                                                        <t t-set="objetivo" t-value="line.saberes_id.name"/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <td>
+                                                                <t t-foreach="o.plan_act_id" t-as="line">
+                                                                    <t t-if="line.semana == 12">
+                                                                        <span style="font-size:12px;"><t t-esc="line.estrategias_id.name"/></span><br/>
+                                                                    </t>
+                                                                </t>
+                                                            </td>
+                                                            <t t-set="contador" t-value="12"/>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-else="">
+                                                    </t>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-1"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="container mt-5">
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-7">
+                                        <p style="font-size:12px;">
+                                            Recibido Por:______________________________________________________________
+                                        </p>
+                                    </div>
+                                    <div class="col-3">
+                                        <p style="font-size:12px;">
+                                            Fecha de Entrega: ___/___/______
+                                        </p>
+                                    </div>
+                                    <div class="col-1"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

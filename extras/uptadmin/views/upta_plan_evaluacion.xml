@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Add you code here -->
+        
+        <!-- upta.plan.evaluacion tree view -->
+        <record id="upta_plan_evaluacion_view_tree" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.view.tree</field>
+            <field name="model">upta.plan.evaluacion</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="profesores_id"/>
+                    <field name="materias_id"/>
+                    <field name="trayectos_id"/>
+                    <field name="fases_id"/>
+                    <field name="periodos_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion form view -->
+        <record id="upta_plan_evaluacion_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.view.form</field>
+            <field name="model">upta.plan.evaluacion</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre" attrs="{'invisible': [('status', '=', False)]}"/>
+                            </h1>
+                        </div>
+                        <group string="Información de Plan de Evaluación">
+                            <group>
+                                <field name="periodos_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="fases_id" domain="[('status', '=', 'activo'), ('trayectos_id', '=', trayectos_id)]"/>
+                                <field name="profesores_id" domain="[('department_id.name', '=', 'Informática')]"/>
+                            </group>
+                            <group>
+                                <field name="trayectos_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="materias_id" domain="[('status', '=', 'activo'), ('trayecto_id', '=', trayectos_id)]"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="actividades" string="Actividades">
+                                <field name="actividades_id">
+                                    <tree default_order="semanas">
+                                        <field name="objetivos_id"/>
+                                        <field name="metas_id"/>
+                                        <field name="condiciones_id"/>
+                                        <field name="instrumentos_id"/>
+                                        <field name="ponderaciones"/>
+                                        <field name="semanas"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion graph view -->
+        <record id="upta_plan_evaluacion_view_graph" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.view.graph</field>
+            <field name="model">upta.plan.evaluacion</field>
+            <field name="arch" type="xml">
+                <graph string="Graph Description">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion pivot view -->
+        <record id="upta_plan_evaluacion_view_pivot" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.view.pivot</field>
+            <field name="model">upta.plan.evaluacion</field>
+            <field name="arch" type="xml">
+                <pivot string="Pivot Description">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- upta.plan.evaluacion.actividades form view -->
+        <record id="upta_plan_evaluacion_actividades_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.evaluacion.actividades.view.form</field>
+            <field name="model">upta.plan.evaluacion.actividades</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Plan de Evaluación">
+                            <group>
+                                <field name="objetivos_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="condiciones_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="ponderaciones" min="0.1" max="25.00"/>
+                            </group>
+                            <group>
+                                <field name="metas_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="instrumentos_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="semanas" min="1" max="12"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="upta_plan_evaluacion_action" model="ir.actions.act_window">
+            <field name="name">Planes de Evaluación UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.plan.evaluacion</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+        </record>
+
+        <menuitem   name="Planificación" 
+                    id="uptadmin.menu_planificacion"
+                    sequence="6"
+                    parent="uptadmin.menu_root"
+                    />
+
+        <menuitem   name="Planes de Evaluación" 
+                    id="uptadmin.menu_plan_evaluacion"
+                    sequence="1"
+                    parent="uptadmin.menu_planificacion"
+                    action="upta_plan_evaluacion_action"
+                    />
+        
+    </data>
+</odoo>

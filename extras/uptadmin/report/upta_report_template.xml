@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+		<template id="external_layout_upta_report_template">
+
+            <div class="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-2 mb4">
+                            <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % to_text(res_company.logo)" style="max-height: 100px; max-width: 100px; vertical-align: middle; horizontal-align: middle;"/>
+                        </div>
+                		<div class="col-6 text-center">
+                			<b style="font-size:12px;"><small style="font-size: 10px;">República Bolivariana de Venezuela <br/>Ministerio del Poder Popular para la Educación Universitaria</small><br/>Universidad Politécnica Territorial del Estado Aragua<br/>Federico Brito Figueroa<br/><small style="font-size: 10px;">La Victoria, Estado Aragua</small></b>
+                		</div>
+                		<div class="col-3">
+                		</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard">
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer">
+                <div class="text-center">
+                    
+                </div>
+            </div>
+        </template>
+	</data>
+</odoo>
