@@ -1,0 +1,1378 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Add you code here -->
+        
+        <report
+            id="action_report_horarios"
+            string="Horario"
+            model="upta.horarios"
+            report_type="qweb-pdf"
+            name="uptadmin.horarios_report"
+            file="uptadmin.horarios_report"
+            menu="True"
+            />
+
+        <template id="horarios_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="uptadmin.external_layout_upta_report_template">
+                        <div class="page">
+                            <div class="container" style="margin-top: 0px;">
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <b style="font-size:15px;" class="text-center">Programa Nacional de Formación en Informática <br/> Horario de Clases por Sección</b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <b style="font-size:14px;">
+                                            <span>Departamento: <t t-esc="o.carreras_id.name"/></span><br/>
+                                            <span>Régimen: <t t-esc="o.mallas_id.turno"/></span><br/>
+                                            <span>Periodo Académico: <t t-esc="datetime.datetime.now().strftime('%Y')"/>-<t t-esc="o.fases_id.identificador"/></span><br/>
+                                            <span>Trimestre: <t t-esc="o.fases_id.identificador"/></span><br/>
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <b style="font-size:20px;" class="text-center">Malla <t t-esc="o.mallas_id.identificador"/></b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-4 text-center">
+                                        <b style="font-size:16px;" class="text-center">Trayecto <t t-esc="o.trayectos_id.identificador"/></b>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <b style="font-size:16px;" class="text-center">Trimestre <t t-esc="o.fases_id.identificador"/></b>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <b style="font-size:16px;" class="text-center">Sección <t t-esc="o.secciones_id.seccion"/></b>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-sm border border-dark mt-2">
+                                <colgroup>
+                                    <col span="1" style="width: 40%;"/>
+                                    <col span="1" style="width: 20%;"/>
+                                    <col span="1" style="width: 20%;"/>
+                                    <col span="1" style="width: 20%;"/>
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                            <b style="font-size:12px;" class="text-center">Unidad Curricular</b>
+                                        </td>
+                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                            <b style="font-size:12px;" class="text-center">Código</b>
+                                        </td>
+                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                            <b style="font-size:12px;" class="text-center">Aula</b>
+                                        </td>
+                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                            <b style="font-size:12px;" class="text-center">Profesor Asesor</b>
+                                        </td>
+                                    </tr>
+                                    <t t-set="materia" t-value=""/>
+                                    <t t-foreach="o.clases_id.sorted(key='materias_id')" t-as="item">
+                                        <t t-if="materia != item.materias_id">
+                                            <tr>
+                                                <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                    <span style="font-size:12px;" class="text-center"><t t-esc="item.materias_id.name"/></span>
+                                                </td>
+                                                <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                    <span style="font-size:12px;" class="text-center"><t t-esc="item.materias_id.codigo"/></span>
+                                                </td>
+                                                <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                    <span style="font-size:12px;" class="text-center"><t t-esc="item.espacios_id.tipos_id.name"/> <t t-esc="item.espacios_id.name"/></span>
+                                                </td>
+                                                <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                    <span style="font-size:12px;" class="text-center"><t t-esc="item.profesores_id.name"/></span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-set="materia" t-value="item.materias_id"/>
+                                    </t>
+                                </tbody>
+                            </table>
+
+                            <div class="container mt-2">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <table class="table border border-dark" style="width:100%;">
+                                            <colgroup>
+                                                <col span="1" style="width: 6%;"/>
+                                                <col span="1" style="width: 14%;"/>
+                                                <col span="1" style="width: 14%;"/>
+                                                <col span="1" style="width: 14%;"/>
+                                                <col span="1" style="width: 14%;"/>
+                                                <col span="1" style="width: 14%;"/>
+                                                <col span="1" style="width: 14%;"/>
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;" class="text-center">Turno</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;" class="text-center">Hora</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;" class="text-center">Lunes</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;" class="text-center">Martes</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;" class="text-center">Miercoles</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;" class="text-center">Jueves</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;" class="text-center">Viernes</b>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">M</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">7:30 a 8:15</span>
+                                                    </td>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 1 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 1 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 1 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 1 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 1 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">A</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">8:15 a 9:00</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 2 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 1 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 2 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 1 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 2 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 1 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 2 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 1 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 2 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 1 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">Ñ</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">9:05 a 9:50</span>
+                                                    </td>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 3 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 2 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 3 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 2 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 3 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 2 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 3 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 2 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 3 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 2 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">A</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">9:50 a 10:35</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 4 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 3 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 4 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 3 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 4 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 3 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 4 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 3 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 4 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 3 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">N</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">10:40 a 11:25</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 5 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 4 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 5 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 4 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 5 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 4 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 5 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 4 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 5 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 4 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">A</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">11:25 a 12:10</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 6 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 5 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 6 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 5 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 6 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 5 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 6 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 5 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 6 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 5 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td colspan="7">
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">T</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">1:30 a 2:15</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 7 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 7 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 7 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 7 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 7 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">A</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">2:15 a 3:00</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 8 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 7 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 8 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 7 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 8 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 7 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 8 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 7 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 8 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 7 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">R</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">3:05 a 3:50</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 9 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 8 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 9 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 8 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 9 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 8 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 9 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 8 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 9 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 8 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">D</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">3:50 a 4:35</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 10 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 9 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 10 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 9 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 10 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 9 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 10 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 9 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 10 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 9 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;">E</b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">4:40 a 5:25</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 11 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 10 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 11 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 10 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 11 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 10 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 11 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 10 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 11 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 10 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <b style="font-size:12px;"></b>
+                                                    </td>
+                                                    <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        <span style="font-size:12px;" class="text-center">5:25 a 6:10</span>
+                                                    </td>
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 12 and item.dias == 'lunes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 11 and item.dias == 'lunes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 12 and item.dias == 'martes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 11 and item.dias == 'martes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 12 and item.dias == 'miercoles'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 11 and item.dias == 'miercoles' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 12 and item.dias == 'jueves'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 11 and item.dias == 'jueves' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+
+                                                    <t t-set="contador" t-value="0"/>
+                                                    <t t-foreach="o.clases_id" t-as="item">
+                                                        <t t-if="item.hora_ini.valor == 12 and item.dias == 'viernes'">
+                                                            <td style="vertical-align: middle;" class="text-center border border-dark" t-att-rowspan="item.duration">
+                                                                <span style="font-size:12px;"><t t-esc="item.materias_id.codigo"/> - <t t-esc="item.espacios_id.tipos_id.name"/> - <t t-esc="item.espacios_id.name"/></span>
+                                                            </td>
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-elif="item.hora_ini.valor == 11 and item.dias == 'viernes' and item.duration > 1">
+                                                            <t t-set="contador" t-value="1"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                        </t>
+                                                    </t>
+                                                    <t t-if="contador == 0">
+                                                        <td style="vertical-align: middle;" class="text-center border border-dark">
+                                                        </td>
+                                                    </t>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container mt-3">
+                                <div class="row">
+                                    <div class="col-1"></div>
+                                    <div class="col-10">
+                                        <p style="font-size:12px;">
+                                            Nota: Aulas identificadas con la letra "A"en la Sede Tradicional (Zona industrial soco) 
+                                            y con letra "B" en la Sede Nueva (Al lado del peaje La Victoria)
+                                        </p>
+                                    </div>
+                                    <div class="col-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
