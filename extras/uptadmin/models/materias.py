@@ -6,7 +6,7 @@ class UPTAMaterias(models.Model):
     _name = 'upta.materias'
     _description = 'Materias de la UPT Aragua'
 
-    name = fields.Char(string='Nombre', help='Inserte el nombre de la materia a registrar')
+    name = fields.Char(string='Nombre', help='Inserte el nombre de la materia a registrar', size=30)
     codigo = fields.Char(string='Código', help='Inserte el código de la materia a registrar')
     mallas_id = fields.Many2one(comodel_name='upta.mallas', string='Malla', help='Malla a la que está asignada la materia')
     trayecto_id = fields.Many2one(comodel_name='upta.trayectos', string='Trayecto', help='Trayecto al que está asignada la materia')

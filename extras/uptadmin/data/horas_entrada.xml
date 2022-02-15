@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <!-- Add you code here -->
+        <record id="upta_horas_entrada_1" model="upta.horarios.horas">
+            <field name="name">7:30 am</field>
+            <field name="valor">1</field>
+            <field name="tipo">entrada</field>
+        </record>
+        
+        <record id="upta_horas_entrada_2" model="upta.horarios.horas">
+            <field name="name">8:15 am</field>
+            <field name="valor">2</field>
+            <field name="tipo">entrada</field>
+        </record>
+
+        <record id="upta_horas_entrada_3" model="upta.horarios.horas">
+            <field name="name">9:00 am</field>
+            <field name="valor">3</field>
+            <field name="tipo">entrada</field>
+        </record>
+    </data>
+</odoo>

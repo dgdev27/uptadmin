@@ -11,6 +11,8 @@
     'depends': ['base', 'hr', 'website', 'stock'],
     'data': [
         'security/ir.model.access.csv',
+        'data/horas_entrada.xml',
+        'data/horas_salida.xml',        
         'views/upta_carreras.xml',
         'views/upta_mallas.xml',
         'views/upta_trayectos.xml',

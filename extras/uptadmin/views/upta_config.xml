@@ -37,7 +37,7 @@
                     <sheet>
                         <group string="Información de Tipos de Espacios">
                             <group>
-                                <field name="name" placeholder="Ej: Aula, Laboratorio, etc..."/>
+                                <field name="name" placeholder="Ej: Aula, Laboratorio, etc..." required="1"/>
                             </group>
                             <group>
                             </group>
@@ -94,7 +94,7 @@
                     <sheet>
                         <group string="Información de Edificios">
                             <group>
-                                <field name="name" placeholder="Ej: A, B, C, etc..."/>
+                                <field name="name" placeholder="Ej: A, B, C, etc..." required="1"/>
                             </group>
                             <group>
                             </group>
