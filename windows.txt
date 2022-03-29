@@ -1,0 +1,1 @@
+Documento cuya única función es identificar en que rama se está trabajando

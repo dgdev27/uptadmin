@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+
+		<record model='ir.ui.view' id='upta_horarios_tree'>
+		    <field name='name'> upta.horarios.tree</field>
+		    <field name='model'>upta.horarios</field>
+		    <field name='arch' type='xml'>
+		        <tree string='description'>
+		        	<field name="name"/>
+		            <field name='secciones_id'/>
+		            <field name="carreras_id"/>
+					<field name="mallas_id"/>
+					<field name="trayectos_id"/>
+					<field name="fases_id"/>
+		        </tree>
+		    </field>
+		</record>
+
+		<record model="ir.ui.view" id="upta_horarios_form">
+		    <field name="name">upta.horarios.form</field>
+		    <field name="model">upta.horarios</field>
+		    <field name="arch" type="xml">
+		        <form string="description">
+		        <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+		            <sheet>
+		            	<div class="oe_title">
+                            <h1>
+                            	<field name="name" attrs="{'invisible': [('status', '=', False)]}"/>
+                            </h1>
+                        </div>
+		                <group  string="Información de Horario">
+		                    <group>
+                                <field name="secciones_id" domain="[('status', '=', 'activo')]" required="1"/>
+								<field name="mallas_id" readonly="1" force_save="1" domain="[('status', '=', 'activo')]" required="1"/>
+								<field name="fases_id" domain="[('status', '=', 'activo'), ('trayectos_id', '=', trayectos_id)]" required="1"/>
+			                </group>
+			                <group>
+								<field name="carreras_id" readonly="1" force_save="1" domain="[('status', '=', 'activo')]" required="1"/>
+					            <field name="trayectos_id" readonly="1" force_save="1" domain="[('status', '=', 'activo')]" required="1"/>
+			                </group>
+		                </group>
+						<notebook>
+							<page name="clases" string="Clases">
+								<field name="clases_id" domain="[('status', '=', 'activo')]">
+									<tree>
+										<field name='dias'/>
+										<field name='hora_ini'/>
+										<field name='hora_fin'/>
+										<field name='materias_id'/>
+										<field name='profesores_id'/>
+										<field name='espacios_id'/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+		            </sheet>
+		        </form>
+		    </field>
+		</record>
+
+		<!-- upta.horarios graph view -->
+        <record id="upta_horarios_view_graph" model="ir.ui.view">
+            <field name="name">upta.horarios.view.graph</field>
+            <field name="model">upta.horarios</field>
+            <field name="arch" type="xml">
+                <graph string="Gráfica de horarios">
+                    <!-- Add your fields here -->
+		            <field name='secciones_id'/>
+		            <field name="carreras_id"/>
+					<field name="trayectos_id"/>
+					<field name="fases_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- upta.horarios pivot view -->
+        <record id="upta_horarios_view_pivot" model="ir.ui.view">
+            <field name="name">upta.horarios.view.pivot</field>
+            <field name="model">upta.horarios</field>
+            <field name="arch" type="xml">
+                <pivot string="Pivot de horarios">
+                    <!-- Add your fields here -->
+		            <field name='secciones_id'/>
+		            <field name="carreras_id"/>
+					<field name="trayectos_id"/>
+					<field name="fases_id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- upta.horarios search view -->
+        <record id="upta_horarios_view_search" model="ir.ui.view">
+            <field name="name">upta.horarios.view.search</field>
+            <field name="model">upta.horarios</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de horarios">
+                    <!-- Add your fields here -->
+		            <field name='secciones_id'/>
+		            <field name="carreras_id"/>
+					<field name="trayectos_id"/>
+					<field name="fases_id"/>
+                </search>
+            </field>
+        </record>
+
+		<!-- upta.horarios.clases form view -->
+		<record id="upta_horarios_clases_view_form" model="ir.ui.view">
+			<field name="name">upta.horarios.clases.view.form</field>
+			<field name="model">upta.horarios.clases</field>
+			<field name="arch" type="xml">
+				<form string="">
+				<header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+					<sheet>
+						<group>
+							<field name="minimo" invisible="1"/>
+							<group>
+								<field name='dias' required="1"/>
+								<field name='hora_fin' domain="[('tipo', '=', 'salida'), ('valor', '>', minimo), ('status', '=', 'activo')]" required="1"/>
+								<field name='materias_id' required="1"/>
+								<field name='espacios_id' required="1"/>
+							</group>
+							<group>
+								<field name='hora_ini' domain="[('tipo', '=', 'entrada'), ('status', '=', 'activo')]" required="1"/>
+								<field name="duration" required="1"/>
+                                <field name="profesores_id" domain="[('department_id.name', '=', 'Informática')]" required="1"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+        <record id="upta_horarios_action" model="ir.actions.act_window">
+            <field name="name">Horarios UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.horarios</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+        </record>
+
+        <menuitem   name="Horarios" 
+                    id="uptadmin.menu_horarios"
+                    sequence="5"
+                    parent="uptadmin.menu_root"
+                    action="upta_horarios_action"
+                    />
+
+	</data>
+</odoo>

@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Add you code here -->
+        
+        <!-- upta.materias tree view -->
+        <record id="upta_materias_view_tree" model="ir.ui.view">
+            <field name="name">upta.materias.view.tree</field>
+            <field name="model">upta.materias</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="codigo"/>
+                    <field name="mallas_id"/>
+                    <field name="trayecto_id"/>
+                    <field name="fases_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.materias form view -->
+        <record id="upta_materias_view_form" model="ir.ui.view">
+            <field name="name">upta.materias.view.form</field>
+            <field name="model">upta.materias</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Materias">
+                            <group>
+                                <field name="name" placeholder="Ej: Formación Crítica, Matemática, Programación, etc..." required="1"/>
+                                <field name="mallas_id" domain="[('status', '=', 'activo')]" required="1"/>
+                                <field name="fases_id" domain="[('status', '=', 'activo'), ('trayectos_id', '=', trayecto_id)]" required="1"/>
+                            </group>
+                            <group>
+                                <field name="codigo" placeholder="Ej: PIFC, PIMT, PIPP, etc..." required="1"/>
+                                <field name="trayecto_id" domain="[('status', '=', 'activo'), ('mallas_id', '=', mallas_id)]" required="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="secciones" string="Secciones">
+                                <field name="seccion_id" domain="[('status', '=', 'activo')]">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="carreras_id"/>
+                                        <field name="trayectos_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.materias graph view -->
+        <record id="upta_materias_view_graph" model="ir.ui.view">
+            <field name="name">upta.materias.view.graph</field>
+            <field name="model">upta.materias</field>
+            <field name="arch" type="xml">
+                <graph string="Gráfica de materias">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="mallas_id"/>
+                    <field name="trayecto_id"/>
+                    <field name="fases_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- upta.materias pivot view -->
+        <record id="upta_materias_view_pivot" model="ir.ui.view">
+            <field name="name">upta.materias.view.pivot</field>
+            <field name="model">upta.materias</field>
+            <field name="arch" type="xml">
+                <pivot string="Pivot de materias">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="mallas_id"/>
+                    <field name="trayecto_id"/>
+                    <field name="fases_id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- upta.materias search view -->
+        <record id="upta_materias_view_search" model="ir.ui.view">
+            <field name="name">upta.materias.view.search</field>
+            <field name="model">upta.materias</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de materias">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="mallas_id"/>
+                    <field name="trayecto_id"/>
+                    <field name="fases_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_materias_action" model="ir.actions.act_window">
+            <field name="name">Materias UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.materias</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+        </record>
+
+        <menuitem   name="Materias" 
+                    id="uptadmin.menu_materias"
+                    sequence="2"
+                    parent="uptadmin.menu_root"
+                    action="upta_materias_action"
+                    />
+
+    </data>
+</odoo>

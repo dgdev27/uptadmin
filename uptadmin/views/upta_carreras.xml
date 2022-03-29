@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Add you code here -->
+        
+        <!-- upta.carreras tree view -->
+        <record id="upta_carreras_view_tree" model="ir.ui.view">
+            <field name="name">upta.carreras.view.tree</field>
+            <field name="model">upta.carreras</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.carreras form view -->
+        <record id="upta_carreras_view_form" model="ir.ui.view">
+            <field name="name">upta.carreras.view.form</field>
+            <field name="model">upta.carreras</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                        <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                        <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                    </header>
+                    <sheet>
+                        <group string="Información de Carreras">
+                        	<group>                        		
+                            	<field name="name" placeholder="Ej: Administración, Informática, Mecánica, etc..." required="1"/>
+                        	</group>
+                        	<group>
+                        	</group>
+                        </group>
+                        <notebook>
+                            <page name="mallas" string="Mallas">
+                                <field name="mallas_id">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="turno"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.carreras graph view -->
+        <record id="upta_carreras_view_graph" model="ir.ui.view">
+            <field name="name">upta.carreras.view.graph</field>
+            <field name="model">upta.carreras</field>
+            <field name="arch" type="xml">
+                <graph string="Gráfica de Carreras">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- upta.carreras pivot view -->
+        <record id="upta_carreras_view_pivot" model="ir.ui.view">
+            <field name="name">upta.carreras.view.pivot</field>
+            <field name="model">upta.carreras</field>
+            <field name="arch" type="xml">
+                <pivot string="Pivot de Carreras">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- upta.carreras search view -->
+        <record id="upta_carreras_view_search" model="ir.ui.view">
+            <field name="name">upta.carreras.view.search</field>
+            <field name="model">upta.carreras</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de Carreras">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_carreras_action" model="ir.actions.act_window">
+            <field name="name">Carreras UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.carreras</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+        </record>
+
+        <menuitem 
+        name="UPTAdmin" 
+        id="uptadmin.menu_root"
+        web_icon="uptadmin,static/description/icon.jpeg"
+        />
+
+        <menuitem   name="Pensum" 
+                    id="uptadmin.menu_1"
+                    sequence="1"
+                    parent="uptadmin.menu_root"
+                    action="upta_carreras_action"
+                    />
+        
+        <menuitem   name="Carreras" 
+                    id="uptadmin.menu_carreras"
+                    sequence="1"
+                    parent="uptadmin.menu_1"
+                    action="upta_carreras_action"
+                    />
+
+    </data>
+</odoo>

@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+	<data>
+
+		<record model='ir.ui.view' id='upta_secciones_tree'>
+		    <field name='name'>upta.secciones.tree</field>
+		    <field name='model'>upta.secciones</field>
+		    <field name='arch' type='xml'>
+		        <tree string='description'>
+                    <field name="name"/>
+		            <field name='seccion'/>
+                    <field name='carreras_id'/>
+                    <field name='mallas_id'/>
+		            <field name='trayectos_id'/>
+		        </tree>
+		    </field>
+		</record>
+
+		<record model="ir.ui.view" id="upta_secciones_form">
+		    <field name="name">upta.secciones.form</field>
+		    <field name="model">upta.secciones</field>
+		    <field name="arch" type="xml">
+		        <form string="description">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+		            <header>
+		            </header>
+		            <sheet>
+		            	<div class="oe_title">
+                            <h1>
+                                <field name="name" attrs="{'invisible': [('status', '=', False)]}" />
+                            </h1>
+                        </div>
+		                <group string="Información de Secciones">
+		                    <group>
+                                <field name="seccion" placeholder="Ej: 1, 2, 3..." required="1"/>
+                                <field name="mallas_id" domamallas_idin="[('status', '=', 'activo'), ('carreras_id', '=', carreras_id)]" required="1"/>
+			                </group>
+			                <group>
+			                    <field name="carreras_id" domain="[('status', '=', 'activo')]" required="1"/>
+			                    <field name="trayectos_id" domain="[('status', '=', 'activo'), ('mallas_id', '=', mallas_id)]" required="1"/>
+			                </group>
+		                </group>
+		                <notebook>
+		                	<page name="materias" string="Materias">
+		                		<field name="materias_id" domain="[('status', '=', 'activo'), ('trayecto_id', '=', trayectos_id)]">
+		                			<tree>
+		                				<field name="name"/>
+		                				<field name="codigo"/>
+		                				<field name="mallas_id"/>
+		                				<field name="trayecto_id"/>
+		                			</tree>
+		                		</field>
+		                	</page>
+                            <page name="agno" string="Año Académico">
+                                <field name="agno_id" domain="[('status', '=', 'activo')]">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="fecha_ini"/>
+                                        <field name="fecha_fin"/>
+                                    </tree>
+                                </field>
+                            </page>
+		                </notebook>
+		            </sheet>
+		        </form>
+		    </field>
+		</record>
+
+		<!-- upta.secciones graph view -->
+        <record id="upta_secciones_view_graph" model="ir.ui.view">
+            <field name="name">upta.secciones.view.graph</field>
+            <field name="model">upta.secciones</field>
+            <field name="arch" type="xml">
+                <graph string="Gráfica de secciones">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="carreras_id"/>
+                    <field name="trayectos_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- upta.secciones pivot view -->
+        <record id="upta_secciones_view_pivot" model="ir.ui.view">
+            <field name="name">upta.secciones.view.pivot</field>
+            <field name="model">upta.secciones</field>
+            <field name="arch" type="xml">
+                <pivot string="Pivot de secciones">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="carreras_id"/>
+                    <field name="trayectos_id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- upta.secciones search view -->
+        <record id="upta_secciones_view_search" model="ir.ui.view">
+            <field name="name">upta.secciones.view.search</field>
+            <field name="model">upta.secciones</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de secciones">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="carreras_id"/>
+                    <field name="trayectos_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_secciones_action" model="ir.actions.act_window">
+            <field name="name">Secciones UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.secciones</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+        </record>
+
+        <menuitem   name="Secciones" 
+                    id="uptadmin.menu_secciones"
+                    sequence="4"
+                    parent="uptadmin.menu_root"
+                    action="upta_secciones_action"
+                    />
+
+	</data>
+</odoo>

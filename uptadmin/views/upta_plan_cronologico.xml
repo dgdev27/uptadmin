@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Add you code here -->
+        
+        <!-- upta.plan.cronologico tree view -->
+        <record id="upta_plan_cronologico_view_tree" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.view.tree</field>
+            <field name="model">upta.plan.cronologico</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="profesores_id"/>
+                    <field name="materias_id"/>
+                    <field name="trayectos_id"/>
+                    <field name="agno_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.plan.cronologico form view -->
+        <record id="upta_plan_cronologico_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.view.form</field>
+            <field name="model">upta.plan.cronologico</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre" attrs="{'invisible': [('status', '=', False)]}"/>
+                            </h1>
+                        </div>
+                        <group  string="Información de Planificación Cronológica">
+                            <field name="tray_mat" invisible="1"/>
+                            <group>
+                                <field name="profesores_id" domain="[('department_id.name', '=', 'Informática')]" required="1"/>
+                                <field name="trayectos_id" domain="[('status', '=', 'activo')]" required="1"/>
+                            </group>
+                            <group>
+                                <field name="agno_id" domain="[('status', '=', 'activo')]" required="1"/>
+                                <field name="materias_id" domain="[('status', '=', 'activo'), ('trayecto_id', '=', tray_mat)]" required="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="actividades" string="Actividades">
+                                <field name="plan_act_id">
+                                    <tree default_order="semana">
+                                        <field name="semana"/>
+                                        <field name="saberes_id"/>
+                                        <field name="estrategias_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.plan.cronologico graph view -->
+        <record id="upta_plan_cronologico_view_graph" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.view.graph</field>
+            <field name="model">upta.plan.cronologico</field>
+            <field name="arch" type="xml">
+                <graph string="Graph Description">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- upta.plan.cronologico pivot view -->
+        <record id="upta_plan_cronologico_view_pivot" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.view.pivot</field>
+            <field name="model">upta.plan.cronologico</field>
+            <field name="arch" type="xml">
+                <pivot string="Pivot Description">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="upta_plan_cronologico_action" model="ir.actions.act_window">
+            <field name="name">Planes Cronológicos UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.plan.cronologico</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+        </record>
+
+        <menuitem   name="Planes Cronológicos" 
+                    id="uptadmin.menu_plan_cronologico"
+                    sequence="2"
+                    parent="uptadmin.menu_planificacion"
+                    action="upta_plan_cronologico_action"
+                    />
+
+
+        <!-- upta.plan.cronologico.actividades form view -->
+        <record id="upta_plan_cronologico_actividades_view_form" model="ir.ui.view">
+            <field name="name">upta.plan.cronologico.actividades.view.form</field>
+            <field name="model">upta.plan.cronologico.actividades</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group  string="Información de Actividades de Planificación Cronológica">
+                            <group>
+                                <field name="semana" required="1"/>
+                                <field name="saberes_id" domain="[('status', '=', 'activo')]" required="1"/>
+                            </group>
+                            <group>
+                                <field name="estrategias_id" domain="[('status', '=', 'activo')]" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Add you code here -->
+        
+        <!-- upta.espacios tree view -->
+        <record id="upta_espacios_view_tree" model="ir.ui.view">
+            <field name="name">upta.espacios.view.tree</field>
+            <field name="model">upta.espacios</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="edificios_id"/>
+                    <field name="tipos_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- upta.espacios form view -->
+        <record id="upta_espacios_view_form" model="ir.ui.view">
+            <field name="name">upta.espacios.view.form</field>
+            <field name="model">upta.espacios</field>
+            <field name="arch" type="xml">
+                <form string="">
+                <header>
+                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                </header>
+                    <sheet>
+                        <group string="Información de Espacios">
+                            <group>
+                                <field name="name" placeholder="Ej: A1, B2, Diseño, etc..." required="1"/>
+                                <field name="edificios_id" domain="[('status', '=', 'activo')]" required="1"/>
+                            </group>
+                            <group>
+                                <field name="tipos_id" domain="[('status', '=', 'activo')]" required="1"/>
+                                <field name="pc_num" attrs="{'invisible': [('tipos_id', '!=', 2)]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- upta.espacios graph view -->
+        <record id="upta_espacios_view_graph" model="ir.ui.view">
+            <field name="name">upta.espacios.view.graph</field>
+            <field name="model">upta.espacios</field>
+            <field name="arch" type="xml">
+                <graph string="Gráfica de espacios">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="edificios_id"/>
+                    <field name="tipos_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- upta.espacios pivot view -->
+        <record id="upta_espacios_view_pivot" model="ir.ui.view">
+            <field name="name">upta.espacios.view.pivot</field>
+            <field name="model">upta.espacios</field>
+            <field name="arch" type="xml">
+                <pivot string="Pivot de espacios">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="edificios_id"/>
+                    <field name="tipos_id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- upta.espacios search view -->
+        <record id="upta_espacios_view_search" model="ir.ui.view">
+            <field name="name">upta.espacios.view.search</field>
+            <field name="model">upta.espacios</field>
+            <field name="arch" type="xml">
+                <search string="Búsqueda de espacios">
+                    <!-- Add your fields here -->
+                    <field name="name"/>
+                    <field name="edificios_id"/>
+                    <field name="tipos_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="upta_espacios_action" model="ir.actions.act_window">
+            <field name="name">Espacios UPT Aragua</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">upta.espacios</field>
+            <field name="view_mode">tree,form,graph,pivot</field>
+        </record>
+        
+        <menuitem   name="Espacios" 
+                    id="uptadmin.menu_espacios"
+                    sequence="3"
+                    parent="uptadmin.menu_root"
+                    action="upta_espacios_action"
+                    />
+        
+
+    </data>
+</odoo>
