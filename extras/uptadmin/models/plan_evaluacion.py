@@ -36,8 +36,8 @@ class UPTAPlanEvaluacionActividades(models.Model):
     metas_id = fields.Many2one(comodel_name='upta.plan.evaluacion.metas', string='Metas', help='Metas de la Actividad')
     condiciones_id = fields.Many2one(comodel_name='upta.plan.evaluacion.condiciones', string='Condiciones para el Desarrollo del Aprendizaje', help='Condiciones de la Actividad')
     instrumentos_id = fields.Many2one(comodel_name='upta.plan.evaluacion.instrumentos', string='Instrumentos o Técnicas de Evaluación', help='Instrumentos de la Actividad')
-    ponderaciones = fields.Float(string='Ponderación', default='1', help='Ponderación de la Actividad')
-    semanas = fields.Integer(string='Semanas', default='1', help='Semana de la Actividad')
+    ponderaciones = fields.Float(string='Ponderación', default='1', help='Ponderación de la Actividad', size=10)
+    semanas = fields.Integer(string='Semanas', default='1', help='Semana de la Actividad', size=10)
     evaluaciones_id = fields.Many2one(comodel_name='upta.plan.evaluacion', string='Plan de Evaluación')
     status = fields.Selection(string='Estado', selection=[('activo', 'Activo'), ('inactivo', 'Inactivo')], default="activo")
     
@@ -51,7 +51,7 @@ class UPTAPlanEvaluacionObjetivos(models.Model):
     _name = 'upta.plan.evaluacion.objetivos'
     _description = 'Objetivos de los Planes de Evaluación de la UPT Aragua'
 
-    name = fields.Text(string='Descripción', help='Descripción de los Objetivos')
+    name = fields.Text(string='Descripción', help='Descripción de los Objetivos', size=100)
     status = fields.Selection(string='Estado', selection=[('activo', 'Activo'), ('inactivo', 'Inactivo')], default="activo")
     
     def status_activate(self):
@@ -64,7 +64,7 @@ class UPTAPlanEvaluacionInstrumentos(models.Model):
     _name = 'upta.plan.evaluacion.instrumentos'
     _description = 'Instrumentos o Técnicas de Evaluación de los Planes de Evaluación de la UPT Aragua'
 
-    name = fields.Text(string='Descripción', help='Descripción de los Instrumentos')
+    name = fields.Text(string='Descripción', help='Descripción de los Instrumentos', size=100)
     status = fields.Selection(string='Estado', selection=[('activo', 'Activo'), ('inactivo', 'Inactivo')], default="activo")
     
     def status_activate(self):
@@ -77,7 +77,7 @@ class UPTAPlanEvaluacionMetas(models.Model):
     _name = 'upta.plan.evaluacion.metas'
     _description = 'Metas de los Planes de Evaluación de la UPT Aragua'
 
-    name = fields.Text(string='Descripción', help='Descripción de las Metas')
+    name = fields.Text(string='Descripción', help='Descripción de las Metas', size=100)
     status = fields.Selection(string='Estado', selection=[('activo', 'Activo'), ('inactivo', 'Inactivo')], default="activo")
     
     def status_activate(self):
@@ -90,7 +90,7 @@ class UPTAPlanEvaluacionCondiciones(models.Model):
     _name = 'upta.plan.evaluacion.condiciones'
     _description = 'Condiciones para el Desarrollo del Aprendizaje de los Planes de Evaluación de la UPT Aragua'
 
-    name = fields.Text(string='Descripción', help='Descripción de Condiciones')
+    name = fields.Text(string='Descripción', help='Descripción de Condiciones', size=100)
     status = fields.Selection(string='Estado', selection=[('activo', 'Activo'), ('inactivo', 'Inactivo')], default="activo")
     
     def status_activate(self):

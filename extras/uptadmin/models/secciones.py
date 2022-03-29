@@ -7,7 +7,7 @@ class UPTASecciones(models.Model):
     _description = 'Secciones de la UPT Aragua'
 
     name = fields.Char(string='Nombre', compute='_compute_name')
-    seccion = fields.Integer(string='Nº de la Sección', default=1, help='Inserte el número identificador de la sección')
+    seccion = fields.Integer(string='Nº de la Sección', help='Inserte el número identificador de la sección', size=2)
     carreras_id = fields.Many2one('upta.carreras',string='Carrera', help='Carrera a la que pertenece la sección')
     mallas_id = fields.Many2one('upta.mallas',string='Malla', help='Malla a la que pertenece la sección')
     trayectos_id = fields.Many2one('upta.trayectos',string='Trayecto', help='Trayecto al que pertenece la sección')
@@ -30,7 +30,7 @@ class UPTAAgnoAcademico(models.Model):
     _name = 'upta.agno.academico'
     _description = 'Años académicos de la UPT Aragua'
 
-    name = fields.Char(string='Nombre', help='Inserte el nombre del año académico a registrar')
+    name = fields.Char(string='Nombre', help='Inserte el nombre del año académico a registrar', size=10)
     fecha_ini = fields.Date(string='Fecha de Inicio', help='Fecha de inicio del año académico')
     fecha_fin = fields.Date(string='Fecha Final', help='Fecha de Finalización del año académico')
     secciones_id = fields.Many2many(comodel_name='upta.secciones', string='Sección', help='Secciones con las que cuenta el año académico')

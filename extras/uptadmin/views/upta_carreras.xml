@@ -20,11 +20,11 @@
             <field name="model">upta.carreras</field>
             <field name="arch" type="xml">
                 <form>
-                <header>
-                    <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
-                    <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
-                    <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
-                </header>
+                    <header>
+                        <button name="status_activate" type="object" string="Activar" attrs="{'invisible': [('status', '=', 'activo')]}"/>
+                        <button name="status_desactivate" type="object" string="Desactivar" attrs="{'invisible': [('status', '=', 'inactivo')]}"/>
+                        <field name="status" widget="statusbar" statusbar_visible="activo,inactivo"/>
+                    </header>
                     <sheet>
                         <group string="Información de Carreras">
                         	<group>                        		

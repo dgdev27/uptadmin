@@ -30,11 +30,11 @@
                     <sheet>
                         <group string="Información de Espacios">
                             <group>
-                                <field name="name" placeholder="Ej: A1, B2, Diseño, etc..."/>
-                                <field name="edificios_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="name" placeholder="Ej: A1, B2, Diseño, etc..." required="1"/>
+                                <field name="edificios_id" domain="[('status', '=', 'activo')]" required="1"/>
                             </group>
                             <group>
-                                <field name="tipos_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="tipos_id" domain="[('status', '=', 'activo')]" required="1"/>
                                 <field name="pc_num" attrs="{'invisible': [('tipos_id', '!=', 2)]}"/>
                             </group>
                         </group>

@@ -81,7 +81,7 @@
                 </header>
                     <sheet>
                         <group string ="Datos de Profesión">
-                            <field name="name"/>                            
+                            <field name="name" required="1"/>                            
                         </group>
                     </sheet>
                 </form>
@@ -133,7 +133,7 @@
                 </header>
                     <sheet>
                         <group string ="Datos de Certificado">
-                            <field name="name"/>                            
+                            <field name="name" required="1"/>                            
                         </group>
                     </sheet>
                 </form>
@@ -179,7 +179,7 @@
                 </header>
                     <sheet>
                         <group string ="Datos de Estudios">
-                            <field name="name"/>                            
+                            <field name="name" required="1"/>                            
                         </group>
                     </sheet>
                 </form>
@@ -225,7 +225,7 @@
                 </header>
                     <sheet>
                         <group string ="Datos de Institutos">
-                            <field name="name"/>                            
+                            <field name="name" required="1"/>                            
                         </group>
                     </sheet>
                 </form>

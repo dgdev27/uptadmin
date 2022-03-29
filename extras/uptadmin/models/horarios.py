@@ -25,9 +25,9 @@ class UPTAHorarios(models.Model):
     def _compute_secciones(self):
         for item in self:
             if item.secciones_id:
-                item.carreras_id = item.secciones_id.carreras_id
-                item.trayectos_id = item.secciones_id.mallas_id
-                item.trayectos_id = item.secciones_id.trayectos_id
+                item.carreras_id = item.secciones_id.carreras_id.id
+                item.mallas_id = item.secciones_id.mallas_id.id
+                item.trayectos_id = item.secciones_id.trayectos_id.id
 
     @api.model
     def _compute_nombre(self):

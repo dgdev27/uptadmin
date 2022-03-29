@@ -148,11 +148,11 @@
                     <sheet>
                         <group string="Información de Años Académicos">
                             <group>
-                                <field name="name" placeholder="Ej: 2020-2021, 2021-2022, 2022-2023, etc..."/>
-                                <field name="fecha_fin"/>                            
+                                <field name="name" placeholder="Ej: 2020-2021, 2021-2022, 2022-2023, etc..." required="1"/>
+                                <field name="fecha_fin" required="1"/>                            
                             </group>
                             <group>
-                                <field name="fecha_ini"/>
+                                <field name="fecha_ini" required="1"/>
                             </group>
                         </group>
                         <notebook>
@@ -233,11 +233,11 @@
                     <sheet>
                         <group string="Información de Horas de Horarios">
                             <group>
-                                <field name="name" placeholder="Ej: 9:00 am, 10:30 am, 1:30 pm, etc..."/>
-                                <field name="tipo"/>                            
+                                <field name="name" placeholder="Ej: 9:00 am, 10:30 am, 1:30 pm, etc..." required="1"/>
+                                <field name="tipo" required="1"/>                            
                             </group>
                             <group>
-                                <field name="valor"/>
+                                <field name="valor" required="1"/>
                             </group>
                         </group>
                     </sheet>
@@ -307,7 +307,7 @@
                     <sheet>
                         <group string="Información de Saberes de Planificación Cronológica">
                             <group>
-                                <field name="name"/>
+                                <field name="name" required="1"/>
                             </group>
                             <group>
                             </group>
@@ -375,7 +375,7 @@
                     <sheet>
                         <group string="Información de Estrategias de Planificación Cronológica">
                             <group>
-                                <field name="name"/>
+                                <field name="name" required="1"/>
                             </group>
                             <group>
                             </group>
@@ -439,7 +439,7 @@
                     <sheet>
                         <group string="Información de Objetivos de Plan de Evaluación">
                             <group>
-                                <field name="name"/>
+                                <field name="name" required="1"/>
                             </group>
                             <group>
                             </group>
@@ -507,7 +507,7 @@
                     <sheet>
                         <group string="Información de Instrumentos de Plan de Evaluación">
                             <group>
-                                <field name="name"/>
+                                <field name="name" required="1"/>
                             </group>
                             <group>
                             </group>
@@ -569,7 +569,7 @@
                     <sheet>
                         <group string="Información de Metas de Plan de Evaluación">
                             <group>
-                                <field name="name"/>
+                                <field name="name" required="1"/>
                             </group>
                             <group>
                             </group>
@@ -631,7 +631,7 @@
                     <sheet>
                         <group string="Información de Condiciones de Plan de Evaluación">
                             <group>
-                                <field name="name"/>
+                                <field name="name" required="1"/>
                             </group>
                             <group>
                             </group>

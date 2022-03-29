@@ -35,13 +35,13 @@
                         </div>
 		                <group  string="Información de Horario">
 		                    <group>
-                                <field name="secciones_id" domain="[('status', '=', 'activo')]"/>
-								<field name="mallas_id" readonly="1" force_save="1" domain="[('status', '=', 'activo')]" />
-								<field name="fases_id" domain="[('status', '=', 'activo'), ('trayectos_id', '=', trayectos_id)]" />
+                                <field name="secciones_id" domain="[('status', '=', 'activo')]" required="1"/>
+								<field name="mallas_id" readonly="1" force_save="1" domain="[('status', '=', 'activo')]" required="1"/>
+								<field name="fases_id" domain="[('status', '=', 'activo'), ('trayectos_id', '=', trayectos_id)]" required="1"/>
 			                </group>
 			                <group>
-								<field name="carreras_id" readonly="1" force_save="1" domain="[('status', '=', 'activo')]"/>
-					            <field name="trayectos_id" readonly="1" force_save="1" domain="[('status', '=', 'activo')]" />
+								<field name="carreras_id" readonly="1" force_save="1" domain="[('status', '=', 'activo')]" required="1"/>
+					            <field name="trayectos_id" readonly="1" force_save="1" domain="[('status', '=', 'activo')]" required="1"/>
 			                </group>
 		                </group>
 						<notebook>
@@ -123,15 +123,15 @@
 						<group>
 							<field name="minimo" invisible="1"/>
 							<group>
-								<field name='dias'/>
-								<field name='hora_fin' domain="[('tipo', '=', 'salida'), ('valor', '>', minimo), ('status', '=', 'activo')]"/>
-								<field name='materias_id'/>
-								<field name='espacios_id'/>
+								<field name='dias' required="1"/>
+								<field name='hora_fin' domain="[('tipo', '=', 'salida'), ('valor', '>', minimo), ('status', '=', 'activo')]" required="1"/>
+								<field name='materias_id' required="1"/>
+								<field name='espacios_id' required="1"/>
 							</group>
 							<group>
-								<field name='hora_ini' domain="[('tipo', '=', 'entrada'), ('status', '=', 'activo')]"/>
-								<field name="duration"/>
-                                <field name="profesores_id" domain="[('department_id.name', '=', 'Informática')]"/>
+								<field name='hora_ini' domain="[('tipo', '=', 'entrada'), ('status', '=', 'activo')]" required="1"/>
+								<field name="duration" required="1"/>
+                                <field name="profesores_id" domain="[('department_id.name', '=', 'Informática')]" required="1"/>
 							</group>
 						</group>
 					</sheet>

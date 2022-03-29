@@ -1,5 +1,4 @@
 from odoo import api, fields, models
-from odoo.osv import expression
 from datetime import datetime, timedelta
 
 class UPTAPlanificacionCronologica(models.Model):
@@ -34,7 +33,7 @@ class UPTAPlanificacionCronologica(models.Model):
 class UPTAPlanificacionCronologicaActividades(models.Model):
     _name = "upta.plan.cronologico.actividades"
 
-    semana = fields.Integer(string='Semana', help='Semana de la Actividad')
+    semana = fields.Integer(string='Semana', help='Semana de la Actividad', size=10)
     saberes_id = fields.Many2one(comodel_name='upta.plan.cronologico.saberes', string='Saberes', help='Saberes de la Actividad')
     estrategias_id = fields.Many2one(comodel_name='upta.plan.cronologico.estrategias', string='Estrategias de Enseñanza - Aprendizaje', help='Estrategias de la Actividad')
     plan_prof_id = fields.Many2one(comodel_name='upta.plan.cronologico', string='Planificación Profesor')
@@ -49,7 +48,7 @@ class UPTAPlanificacionCronologicaActividades(models.Model):
 class UPTAPlanificacionCronologicaSaberes(models.Model):
     _name = 'upta.plan.cronologico.saberes'
 
-    name = fields.Text(string='Descripción', help='Descripción del saber que se está registrando')
+    name = fields.Text(string='Descripción', help='Descripción del saber que se está registrando', size=10)
     plan_id = fields.One2many(comodel_name='upta.plan.cronologico.actividades', inverse_name='saberes_id', string=' Actividades de Planificación')
     status = fields.Selection(string='Estado', selection=[('activo', 'Activo'), ('inactivo', 'Inactivo')], default="activo")
 
@@ -62,7 +61,7 @@ class UPTAPlanificacionCronologicaSaberes(models.Model):
 class UPTAPlanificacionCronologicaEstrategias(models.Model):
     _name = 'upta.plan.cronologico.estrategias'
 
-    name = fields.Text(string='Descripción', help='Descripción de la estrategia que se está registrando')
+    name = fields.Text(string='Descripción', help='Descripción de la estrategia que se está registrando', size=10)
     plan_id = fields.One2many(comodel_name='upta.plan.cronologico.actividades', inverse_name='estrategias_id', string=' Actividades de Planificación')
     status = fields.Selection(string='Estado', selection=[('activo', 'Activo'), ('inactivo', 'Inactivo')], default="activo")
 

@@ -31,17 +31,17 @@
 		            <sheet>
 		            	<div class="oe_title">
                             <h1>
-                                <field name="name" attrs="{'invisible': [('status', '=', False)]}"/>
+                                <field name="name" attrs="{'invisible': [('status', '=', False)]}" />
                             </h1>
                         </div>
 		                <group string="Información de Secciones">
 		                    <group>
-                                <field name="seccion"/>
-                                <field name="mallas_id" domamallas_idin="[('status', '=', 'activo'), ('carreras_id', '=', carreras_id)]"/>
+                                <field name="seccion" placeholder="Ej: 1, 2, 3..." required="1"/>
+                                <field name="mallas_id" domamallas_idin="[('status', '=', 'activo'), ('carreras_id', '=', carreras_id)]" required="1"/>
 			                </group>
 			                <group>
-			                    <field name="carreras_id" domain="[('status', '=', 'activo')]"/>
-			                    <field name="trayectos_id" domain="[('status', '=', 'activo'), ('mallas_id', '=', mallas_id)]"/>
+			                    <field name="carreras_id" domain="[('status', '=', 'activo')]" required="1"/>
+			                    <field name="trayectos_id" domain="[('status', '=', 'activo'), ('mallas_id', '=', mallas_id)]" required="1"/>
 			                </group>
 		                </group>
 		                <notebook>

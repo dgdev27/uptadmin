@@ -33,13 +33,13 @@
                     <sheet>
                         <group string="Información de Materias">
                             <group>
-                                <field name="name" placeholder="Ej: Formación Crítica, Matemática, Programación, etc..."/>
-                                <field name="mallas_id" domain="[('status', '=', 'activo')]"/>
-                                <field name="fases_id" domain="[('status', '=', 'activo'), ('trayectos_id', '=', trayecto_id)]"/>
+                                <field name="name" placeholder="Ej: Formación Crítica, Matemática, Programación, etc..." required="1"/>
+                                <field name="mallas_id" domain="[('status', '=', 'activo')]" required="1"/>
+                                <field name="fases_id" domain="[('status', '=', 'activo'), ('trayectos_id', '=', trayecto_id)]" required="1"/>
                             </group>
                             <group>
-                                <field name="codigo" placeholder="Ej: PIFC, PIMT, PIPP, etc..."/>
-                                <field name="trayecto_id" domain="[('status', '=', 'activo'), ('mallas_id', '=', mallas_id)]"/>
+                                <field name="codigo" placeholder="Ej: PIFC, PIMT, PIPP, etc..." required="1"/>
+                                <field name="trayecto_id" domain="[('status', '=', 'activo'), ('mallas_id', '=', mallas_id)]" required="1"/>
                             </group>
                         </group>
                         <notebook>

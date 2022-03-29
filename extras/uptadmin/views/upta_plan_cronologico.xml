@@ -39,12 +39,12 @@
                         <group  string="Información de Planificación Cronológica">
                             <field name="tray_mat" invisible="1"/>
                             <group>
-                                <field name="profesores_id" domain="[('department_id.name', '=', 'Informática')]"/>
-                                <field name="trayectos_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="profesores_id" domain="[('department_id.name', '=', 'Informática')]" required="1"/>
+                                <field name="trayectos_id" domain="[('status', '=', 'activo')]" required="1"/>
                             </group>
                             <group>
-                                <field name="agno_id" domain="[('status', '=', 'activo')]"/>
-                                <field name="materias_id" domain="[('status', '=', 'activo'), ('trayecto_id', '=', tray_mat)]"/>
+                                <field name="agno_id" domain="[('status', '=', 'activo')]" required="1"/>
+                                <field name="materias_id" domain="[('status', '=', 'activo'), ('trayecto_id', '=', tray_mat)]" required="1"/>
                             </group>
                         </group>
                         <notebook>
@@ -116,11 +116,11 @@
                     <sheet>
                         <group  string="Información de Actividades de Planificación Cronológica">
                             <group>
-                                <field name="semana"/>
-                                <field name="saberes_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="semana" required="1"/>
+                                <field name="saberes_id" domain="[('status', '=', 'activo')]" required="1"/>
                             </group>
                             <group>
-                                <field name="estrategias_id" domain="[('status', '=', 'activo')]"/>
+                                <field name="estrategias_id" domain="[('status', '=', 'activo')]" required="1"/>
                             </group>
                         </group>
                     </sheet>
