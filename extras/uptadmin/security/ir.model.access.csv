@@ -17,11 +17,6 @@ acces_upta_horarios,upta.horarios,model_upta_horarios,base.group_user,1,1,1,1
 acces_upta_horarios_clases,upta.horarios.clases,model_upta_horarios_clases,base.group_user,1,1,1,1
 acces_upta_horarios_horas,upta.horarios.horas,model_upta_horarios_horas,base.group_user,1,1,1,1
 
-acces_upta_empleados_profesiones,upta.empleados.profesiones,model_upta_empleados_profesiones,base.group_user,1,1,1,1
-acces_upta_empleados_certificado,upta.empleados.certificado,model_upta_empleados_certificado,base.group_user,1,1,1,1
-acces_upta_empleados_estudios,upta.empleados.estudios,model_upta_empleados_estudios,base.group_user,1,1,1,1
-acces_upta_empleados_institutos,upta.empleados.institutos,model_upta_empleados_institutos,base.group_user,1,1,1,1
-
 acces_upta_plan_cronologico,upta.plan.cronologico,model_upta_plan_cronologico,base.group_user,1,1,1,1
 acces_upta_plan_cronologico_actividades,upta.plan.cronologico.actividades,model_upta_plan_cronologico_actividades,base.group_user,1,1,1,1
 acces_upta_plan_cronologico_saberes,upta.plan.cronologico.saberes,model_upta_plan_cronologico_saberes,base.group_user,1,1,1,1

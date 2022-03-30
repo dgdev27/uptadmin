@@ -37,14 +37,13 @@
                             </h1>
                         </div>
                         <group  string="Información de Planificación Cronológica">
-                            <field name="tray_mat" invisible="1"/>
                             <group>
                                 <field name="profesores_id" domain="[('department_id.name', '=', 'Informática')]" required="1"/>
                                 <field name="trayectos_id" domain="[('status', '=', 'activo')]" required="1"/>
                             </group>
                             <group>
                                 <field name="agno_id" domain="[('status', '=', 'activo')]" required="1"/>
-                                <field name="materias_id" domain="[('status', '=', 'activo'), ('trayecto_id', '=', tray_mat)]" required="1"/>
+                                <field name="materias_id" domain="[('status', '=', 'activo'), ('trayecto_id', '=', trayectos_id)]" required="1"/>
                             </group>
                         </group>
                         <notebook>

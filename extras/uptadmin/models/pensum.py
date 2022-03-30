@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
-from odoo.osv import expression
 from datetime import datetime, timedelta
 
 class UPTACarreras(models.Model):
@@ -21,7 +20,7 @@ class UPTAMallas(models.Model):
     _name = 'upta.mallas'
     _description = 'Mallas de la UPT Aragua'
 
-    name = fields.Char(string="Nombre", compute="_compute_name")
+    name = fields.Char(string="Nombre", compute="_compute_name", copy=False)
     identificador = fields.Char(string='Identificador', help='Inserte el identificador de la malla a registrar', size=10)
     turno = fields.Selection(string='Turno', selection=[('diurno', 'Diurno'), ('nocturno', 'Nocturno'),])
     carreras_id = fields.Many2one(comodel_name='upta.carreras', string='Carrera', help='Carrera con la que cuenta la malla', store=True)
@@ -43,7 +42,7 @@ class UPTATrayectos(models.Model):
     _name = 'upta.trayectos'
     _description = 'Trayecto de la UPT Aragua'
 
-    name = fields.Char(string="Nombre", compute="_compute_name")
+    name = fields.Char(string="Nombre", compute="_compute_name", copy=False)
     identificador = fields.Char(string='Identificador', help='Inserte el identificador del trayecto a registrar', size=20)
     mallas_id = fields.Many2one(comodel_name='upta.mallas', string='Malla', help='Malla con la que cuenta el trayecto', store=True)
     fases_id = fields.One2many(comodel_name='upta.fases', inverse_name='trayectos_id', string=' Fases', help='Fases con las que cuenta el trayecto')
@@ -64,7 +63,7 @@ class UPTAFases(models.Model):
     _name = 'upta.fases'
     _description = 'Fases de la UPT Aragua'
 
-    name = fields.Char(string="Nombre", compute="_compute_name")
+    name = fields.Char(string="Nombre", compute="_compute_name", copy=False)
     identificador = fields.Char(string='Identificador', help='Inserte el identificador de la fase a registrar', size=10)
     trayectos_id = fields.Many2one(comodel_name='upta.trayectos', string='Trayecto', help='Trayecto con el que cuenta la Fase', store=True)
     materias_id = fields.One2many(comodel_name='upta.materias', inverse_name='fases_id', string=' Materias', help='Materias con las que cuenta la fase')
