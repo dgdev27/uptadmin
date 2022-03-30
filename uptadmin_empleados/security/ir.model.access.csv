@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acces_upta_empleados_profesiones,upta.empleados.profesiones,model_upta_empleados_profesiones,base.group_user,1,1,1,1
+acces_upta_empleados_certificado,upta.empleados.certificado,model_upta_empleados_certificado,base.group_user,1,1,1,1
+acces_upta_empleados_estudios,upta.empleados.estudios,model_upta_empleados_estudios,base.group_user,1,1,1,1
+acces_upta_empleados_institutos,upta.empleados.institutos,model_upta_empleados_institutos,base.group_user,1,1,1,1

@@ -1,5 +1,4 @@
 from odoo import api, fields, models
-from odoo.osv import expression
 from datetime import datetime, timedelta
 
 class UPTAMaterias(models.Model):

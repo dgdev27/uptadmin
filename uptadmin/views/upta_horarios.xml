@@ -130,7 +130,7 @@
 							</group>
 							<group>
 								<field name='hora_ini' domain="[('tipo', '=', 'entrada'), ('status', '=', 'activo')]" required="1"/>
-								<field name="duration" required="1"/>
+								<field name="duration"/>
                                 <field name="profesores_id" domain="[('department_id.name', '=', 'Informática')]" required="1"/>
 							</group>
 						</group>

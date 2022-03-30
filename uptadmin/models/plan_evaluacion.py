@@ -1,12 +1,11 @@
 from odoo import api, fields, models
-from odoo.osv import expression
 from datetime import datetime, timedelta
 
 class UPTAPlanEvaluacion(models.Model):
     _name = 'upta.plan.evaluacion'
     _description = 'Planes de Evaluación de la UPT Aragua'
 
-    name = fields.Char(string='Nombre', compute="_compute_name")
+    name = fields.Char(string='Nombre', compute="_compute_name", copy=False)
     profesores_id = fields.Many2one(comodel_name='hr.employee', string='Profesor', default= lambda self: self.env.user.employee_ids, help='Profesor que realiza el Plan de Evaluación')
     materias_id = fields.Many2one(comodel_name='upta.materias', string='Materia', help='Materia para el Plan de Evaluación')
     trayectos_id = fields.Many2one(comodel_name='upta.trayectos', string='Trayecto', help='Trayecto del Plan de Evaluación')

@@ -1,11 +1,9 @@
 from odoo import api, fields, models
-from odoo.osv import expression
 from datetime import datetime, timedelta
 
 class UPTADepartamentos(models.Model):
     _inherit = 'hr.department'
 
-    instituto_id = fields.Many2one('res.company',string='Instituto')
     edificios_id = fields.Many2one('upta.espacios.edificios', string='Edificio')
   
 class UPTAEmpleados(models.Model):
@@ -17,6 +15,10 @@ class UPTAEmpleados(models.Model):
     certificado_id = fields.Many2one('upta.empleados.certificado', string='Nivel de certificado')
     estudios_id = fields.Many2one('upta.empleados.estudios', string='Campo de estudio')
     institutos_id = fields.Many2one('upta.empleados.institutos', string='Instituto')
+
+    @api.onchange('job_id')
+    def onchange_job(self):
+        self.job_title = self.job_id.name 
 
 class UPTAEmpleadosProfesiones(models.Model):
     _name = 'upta.empleados.profesiones'

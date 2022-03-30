@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <!-- Add you code here -->
+        <record id="upta_espacios_tipos_1" model="upta.espacios.tipos">
+            <field name="id">1</field>
+            <field name="name">Aula</field>
+        </record>
+        
+        <record id="upta_espacios_tipos_2" model="upta.espacios.tipos">
+            <field name="id">2</field>
+            <field name="name">Laboratorio</field>
+        </record>
+
+    </data>
+</odoo>

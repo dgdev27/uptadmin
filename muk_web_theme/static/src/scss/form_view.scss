@@ -63,6 +63,17 @@
             }
         }
     }
+	// Title & avatar
+    .oe_title {
+        color: $headings-color;
+        @include media-breakpoint-up(vsm, $o-extra-grid-breakpoints) {
+            padding-right: $o-innergroup-rpadding;
+        }
+    }
+	
+	.oe_avatar + .oe_title {
+        padding-right: $o-avatar-size + 10;
+    }
    	@include media-breakpoint-down(sm) {			
 	    .o_form_sheet, .oe_chatter {
 	        min-width: 100% !important;
